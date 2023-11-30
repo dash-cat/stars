@@ -13,14 +13,18 @@ export class AuthService {
   ) {}
 
   async signIn(createUserDto: CreateUserDto) {
-    const user = await this.usersService.findOne(createUserDto.email);
+    // const user = await this.usersService.findOne({
+    //   'email': createUserDto.email,
+    //   password: '',
+    //   login: ''
+    // });
 
-    if (!user?.password) {
-      throw new UnauthorizedException();
-    }
-    const payload = { sub: user.email, username: user.password };
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+    // if (!user?.password) {
+    //   throw new UnauthorizedException();
+    // }
+    // const payload = { sub: user.email, username: user.password };
+    // return {
+    //   access_token: await this.jwtService.signAsync(payload),
+    // };
   }
 }

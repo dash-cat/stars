@@ -10,11 +10,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { Request as ExpressRequest } from 'express';
+import { CreateUserDto } from 'src/users/createUserDto';
 
-export interface Request extends ExpressRequest {
-  user?: any;
-}
 
 @Controller('auth')
 export class AuthController {
@@ -22,13 +19,13 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() CreateUserDto: Record<string, any>) {
-    return this.authService.signIn(CreateUserDto.email, CreateUserDto.password);
+  signIn(@Body() createUserDto: CreateUserDto) {
+    return this.authService.signIn(createUserDto);
   }
 
   @UseGuards(AuthGuard)
   @Get('profile')
-  getProfile(@Request() req: Request ): Promise<any>  {
-    return req.user;
+  getProfile(@Request() req: Request )  {
+    // return req;
   }
 }
